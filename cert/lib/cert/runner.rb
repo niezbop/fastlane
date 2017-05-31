@@ -184,6 +184,7 @@ module Cert
       ENV["CER_FILE_PATH"] = cert_path
 
       UI.success("Successfully generated #{certificate.id} which was imported to the local machine.")
+      UI.verbose("Certificate stored under #{cert_path}")
 
       return cert_path
     end
