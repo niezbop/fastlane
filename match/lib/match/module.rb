@@ -28,4 +28,13 @@ module Match
   def self.profiles_dir(params, prov_type)
     File.join(params[:workspace], "profiles", prov_type.to_s)
   end
+
+  # return the platform prefix under which to store the data
+  def self.platform_dir(params)
+    platform = ''
+    platform = 'osx' if params[:platform].to_s == 'osx'
+    platform
+  end
+
+  private_class_method :platform_dir
 end
