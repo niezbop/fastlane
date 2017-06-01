@@ -122,16 +122,15 @@ module Match
             Utils.import(cert_path, params[:keychain_name], password: params[:keychain_password])
           end
 
+          # Import the private key
+          # there seems to be no good way to check if it's already installed - so just install it
+          Utils.import(cert_path.gsub(".cer", ".p12"), params[:keychain_name], password: params[:keychain_password])
+
           # Get and print info of certificate
           info = Utils.get_cert_info(cert_path)
           TablePrinter.print_certificate_info(cert_info: info)
         end
 
-        keys.each do |key_path|
-          # Import the private key
-          # there seems to be no good way to check if it's already installed - so just install it
-          Utils.import(key_path, params[:keychain_name], password: params[:keychain_password])
-        end
         cert_paths = certs
       end
 
