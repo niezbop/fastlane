@@ -173,31 +173,31 @@ module Sigh
       case Sigh.config[:platform].to_s
       when 'ios', 'tvos'
         if profile_type == Spaceship.provisioning_profile.Development
-          certificates = Spaceship.certificate.development.all
+          cert_type = Spaceship.certificate.development
         elsif profile_type == Spaceship.provisioning_profile.InHouse
-          certificates = Spaceship.certificate.in_house.all
+          cert_type = Spaceship.certificate.in_house
         # handles case where the desired certificate type is adhoc but the account is an enterprise account
         # the apple dev portal api has a weird quirk in it where if you query for distribution certificates
         # for enterprise accounts, you get nothing back even if they exist.
         elsif profile_type == Spaceship.provisioning_profile.AdHoc && Spaceship.client && Spaceship.client.in_house?
-          certificates = Spaceship.certificate.in_house.all
+          cert_type = Spaceship.certificate.in_house
         else
-          certificates = Spaceship.certificate.production.all # Ad hoc or App Store
+          cert_type = Spaceship.certificate.production # Ad hoc or App Store
         end
 
       when 'macos'
         if profile_type == Spaceship.provisioning_profile.Development
-          certificates = Spaceship.certificate.mac_development.all
+          cert_type = Spaceship.certificate.mac_development
         elsif profile_type == Spaceship.provisioning_profile.AppStore
-          certificates = Spaceship.certificate.mac_app_distribution.all
+          cert_type = Spaceship.certificate.mac_app_distribution
         elsif profile_type == Spaceship.provisioning_profile.Direct
-          certificates = Spaceship.certificate.developer_id_application.all
+          cert_type = Spaceship.certificate.developer_id_application
         else
-          certificates = Spaceship.certificate.mac_app_distribution.all
+          cert_type = Spaceship.certificate.mac_app_distribution
         end
       end
 
-      certificates
+      cert_type.all
     end
 
     # Certificate to use based on the current distribution mode
