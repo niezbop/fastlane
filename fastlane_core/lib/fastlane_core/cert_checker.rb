@@ -50,7 +50,9 @@ module FastlaneCore
     end
 
     def self.list_available_identities(in_keychain: nil)
-      commands = ['security find-identity -v -p codesigning']
+      # we could only search the policies we need depending on the cert CN name for example
+      # right now, we go for all
+      commands = ['security find-identity -v -p codesigning  -p macappstore']
       commands << in_keychain if in_keychain
       `#{commands.join(' ')}`
     end
