@@ -7,7 +7,7 @@ module Match
   DESCRIPTION = "Easily sync your certificates and profiles across your team using git"
 
   def self.environments
-    return %w(appstore adhoc development enterprise)
+    return %w(appstore adhoc development enterprise developer_ID)
   end
 
   def self.distribution_types
@@ -21,7 +21,7 @@ module Match
   def self.cert_type_sym(type)
     return :enterprise if type == "enterprise"
     return :development if type == "development"
-    return :distribution if ["adhoc", "appstore", "distribution"].include?(type)
+    return :distribution if ["adhoc", "appstore", "distribution", "developer_ID"].include?(type)
     raise "Unknown cert type: '#{type}'"
   end
 

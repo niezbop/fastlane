@@ -29,6 +29,10 @@ module Match
                                            git_user_email: params[:git_user_email],
                                            clone_branch_directly: params[:clone_branch_directly])
 
+      if params[:type] == "developer_ID" && params[:platform] != 'osx'
+        UI.user_error!("You specified the profile type 'developer_ID', but Apple only support Developer ID certificates on Mac")
+      end
+
       unless params[:readonly]
         self.spaceship = SpaceshipEnsure.new(params[:username], params[:team_id], params[:team_name])
         if params[:type] == "enterprise" && !Spaceship.client.in_house?
