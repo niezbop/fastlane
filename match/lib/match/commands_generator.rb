@@ -38,7 +38,7 @@ module Match
 
         c.action do |args, options|
           if args.count > 0
-            FastlaneCore::UI.user_error!("Please run `fastlane match [type]`, allowed values: development, adhoc, enterprise  or appstore")
+            FastlaneCore::UI.user_error!("Please run `fastlane match [type]`, allowed values: development, adhoc, enterprise or appstore. developer_ID is also allowed for platform mac")
           end
 
           params = FastlaneCore::Configuration.create(Match::Options.available_options, options.__hash__)
